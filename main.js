@@ -1,0 +1,236 @@
+
+let Password=document.getElementById("signupPassword")
+let labelPassword=document.getElementById("labelPassword")
+let confirmPassword=document.getElementById("confirmPassword")
+let errorMessege=document.getElementById("errorMessege")
+let signuplabelPassword=document.getElementById("signuplabelPassword")
+
+  let comparingPass=[confirmPassword,Password]
+comparingPass.forEach(input=>{
+    input.addEventListener("input",(event)=>{
+        let pass=Password.value
+        let confirm=confirmPassword.value
+  //   if (!pass || !confirm) {
+  //   errorMessege.innerHTML = "Required";
+  //   errorMessege.style.color = "rgb(214, 108, 108)";
+  //   confirmPassword.style.border = "1px solid rgb(214, 108, 108)";
+  //    signuplabelPassword.style.color=""
+  //   return;
+  // }
+
+     if(!confirm||!pass){
+      errorMessege.innerHTML=""
+      confirmPassword.style.border = "";
+      return;
+     }
+
+      if(confirm==pass ){
+        errorMessege.innerHTML="Valid match"
+        errorMessege.style.color="rgba(23, 207, 78, 1)"
+        confirmPassword.style.border="1px solid rgba(23, 207, 78, 1)"
+        
+        }else{
+          errorMessege.innerHTML="password don't match"
+          errorMessege.style.color = "rgb(214, 108, 108)";
+          confirmPassword.style.border = "1px solid rgb(214, 108, 108)";
+          signuplabelPassword.style.color=""
+        }
+    })
+})
+
+Password.addEventListener("input",(event)=>{
+    function passCheck(){
+    let pass=event.target.value
+    let characters=document.getElementById("characters")
+    let oneSymbol=document.getElementById("oneSymbol")
+    let upperCase=document.getElementById("uppercase")
+    const symbols = [
+  "!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", 
+  ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|", "}", "~"
+];
+    const uppercase=[
+  "A","B","C","D","E","F","G","H","I","J","K","L","M",
+  "N","O","P","Q","R","S","T","U","V","W","X","Y","Z"
+];
+
+
+  let isLengthValid = pass.length >= 8 && pass.length <= 14;
+  let hasSymbol = symbols.some(s => pass.includes(s));
+  let hasUppercase = uppercase.some(u => pass.includes(u));
+
+   
+
+
+  characters.style.color = isLengthValid
+    ? "rgba(23, 207, 78, 1)"
+    : "rgb(214, 108, 108)";
+
+  oneSymbol.style.color = hasSymbol
+    ? "rgba(23, 207, 78, 1)"
+    : "rgb(214, 108, 108)";
+
+
+  upperCase.style.color = hasUppercase
+    ? "rgba(23, 207, 78, 1)"
+    : "rgb(214, 108, 108)";
+
+
+  labelPassword.style.color =
+    isLengthValid && hasSymbol && hasUppercase
+      ? "rgba(23, 207, 78, 1)"
+      : "";
+
+   signupPassword.style.border =
+    isLengthValid && hasSymbol && hasUppercase
+      ? "1px solid rgba(23, 207, 78, 1)"
+      : "";
+    
+      
+}
+passCheck()
+})
+
+
+let signupEmail=document.getElementById("signupEmail")
+let loginPassword=document.getElementById("loginPassword")
+let signupPassword=document.getElementById("signupPassword")
+let signupName=document.getElementById("signupName")
+let loginEmail=document.getElementById("loginEmail")
+
+
+loginEmail.addEventListener("input",(event)=>{
+  let logemail=event.target.value
+  let emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if(emailRegex.test(logemail)){
+    loginEmail.style.border="1px solid rgba(23, 207, 78, 1)"
+  }else{
+    loginEmail.style.border="1px solid rgb(214, 108, 108)"
+  }
+
+  // console.log(logemail)
+})
+
+
+
+
+signupEmail.addEventListener("input",(event)=>{
+    let email=event.target.value.trim()
+    let emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    signupEmail.classList.remove("input-error", "input-success");
+    if(emailRegex.test(email)){
+        
+        signupEmail.style.border = "1px solid rgba(23, 207, 78, 1)";
+        errorEmail.innerHTML =""
+        labelEmail.style.color="rgba(23, 207, 78, 1)"
+    }else {
+        signupEmail.style.border = "1px solid rgb(214, 108, 108)"
+    }
+    // console.log(email);
+    
+})
+let themeToggle=document.getElementById("themeToggle")
+let signupBtn=document.getElementById("signupBtn")
+let labelEmail=document.getElementById("labelEmail")
+let errorEmail=document.getElementById("errorEmail")
+let signupNameError=document.getElementById("signupNameError")
+let signupNameinput=document.getElementById("signupNameinput") 
+let signupNamelabel=document.getElementById("signupNamelabel")
+let passMessege=document.getElementById("passMessege")
+
+
+signupNameinput.addEventListener("input",(event)=>{
+   let name = signupNameinput.value.trim()
+   let nameRegex= /^[^\s@1-9]+\s[A-Za-z\s]+$/
+   if(nameRegex.test(name)){
+    signupNameinput.style.border = "1px solid rgba(23, 207, 78, 1)";
+    signupNamelabel.style.color="rgba(23, 207, 78, 1)"
+    signupNameError.innerHTML=""
+   }else{
+    signupNameinput.style.border = "1px solid rgb(214, 108, 108)"
+   }
+})
+
+
+signupBtn.addEventListener("click", async() => {
+     
+
+
+
+
+
+    let name = signupNameinput.value.trim();
+    let email = signupEmail.value.trim();
+    let pass = Password.value;
+    let confirm = confirmPassword.value;
+    
+
+
+    
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let nameRegex= /^[^\s@1-9]+\s[A-Za-z\s]+$/
+
+    let hasError = false;
+
+    if (name === "" || !nameRegex.test(name)) {
+        signupNameError.innerHTML = "Required" 
+        signupNameError.style.color = "rgb(214, 108, 108)";
+        signupNameinput.style.border = "1px solid rgb(214, 108, 108)";
+        signupNamelabel.style.color = "rgb(214, 108, 108)";
+        hasError = true;
+    }
+
+    if (email === "" || !emailRegex.test(email)) {
+        errorEmail.innerHTML = email === "" ? "Required" : "Invalid email";
+        errorEmail.style.color = "rgb(214, 108, 108)";
+        signupEmail.style.border = "1px solid rgb(214, 108, 108)";
+        labelEmail.style.color = "rgb(214, 108, 108)";
+        hasError = true;
+    }
+
+    if (pass === "") {
+        signupPassword.style.border = "1px solid rgb(214, 108, 108)";
+        labelPassword.style.color = "rgb(214, 108, 108)";
+        signuplabelPassword.style.color = "rgb(214, 108, 108)";
+        passMessege.innerHTML = "Required" 
+        passMessege.style.color = "rgb(214, 108, 108)";
+        hasError = true;
+    }
+
+    if (confirm === "" || confirm !== pass) {
+        errorMessege.innerHTML =
+        confirm === "" ? "Required" : "The passwords you entered do not match.";
+        errorMessege.style.color = "rgb(214, 108, 108)";
+        confirmPassword.style.border = "1px solid rgb(214, 108, 108)";
+        signuplabelPassword.style.color = "rgb(214, 108, 108)";
+        hasError = true;
+    }
+
+    if (!hasError) {
+        errorMessege.style.color = "rgba(23, 207, 78, 1)";
+        confirmPassword.style.border = "1px solid rgba(23, 207, 78, 1)";
+        signuplabelPassword.style.color = "rgba(23, 207, 78, 1)";
+        // window.location.href="index.html"
+
+         const res = await fetch("http://localhost:8000/sign_UP", {
+          method: "POST",
+          headers: {"Content-type": "application/json"
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            pass
+          }) 
+
+         })
+          const data = await res.json()
+          console.log(data);
+    }
+
+    signupPassword.style.border =
+    !isLengthValid && !hasSymbol && !hasUppercase
+      ? "1px solid rgb(214, 108, 108)"
+      : "";
+
+    
+});
