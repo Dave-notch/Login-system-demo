@@ -234,3 +234,34 @@ signupBtn.addEventListener("click", async() => {
 
     
 });
+
+let signinBtn=document.getElementById("signinBtn");
+
+signinBtn.addEventListener("click", async()=>{
+   
+   let loginPass=loginPassword.value
+   let logEmail=loginEmail.value.trim()
+   let emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+   if(emailRegex.test(logEmail) && loginPass){
+       const res = await fetch("http://localhost:8000/sign_UP/login", {
+          method: "POST",
+          headers: {"Content-type": "application/json"
+          },
+          body: JSON.stringify({
+           logEmail,
+           loginPass
+          }) 
+
+         })
+          const data = await res.json()
+          console.log(data);
+       
+    }else if(!emailRegex.test(logEmail) &&!loginPass){
+    loginEmail.style.border="1px solid rgb(214, 108, 108)"
+    loginPassword.style.border="1px solid rgb(214, 108, 108)"
+
+  }
+
+  
+})

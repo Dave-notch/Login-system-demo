@@ -146,7 +146,7 @@ nav {
 
             <button
               type="button"
-              itemid=""
+              id="signinBtn"
               class="w-full bg-blue-500 text-white h-10 text-xl rounded-xl font-semibold hover:bg-blue-600 transition Submit">
               sign in
           </button>
@@ -173,11 +173,11 @@ nav {
               <p id="passMessege" class="errorMessege label"></p>
             </div>
 
-            <div class="flex flex-col gap-2">
+            <div class="">
               <label for="loginEmail" class=" block font-semibold label" id="signuplabelPassword">Confirm passowrd</label>
               <input class="w-[clamp(280px,90vw,420px)] rounded-xl bg-gray-100 h-10 py-2 label outline-none focus:ring-0 focus:ring-black-200" type="password" placeholder="••••••••" id="confirmPassword">
               <p id="errorMessege" class="errorMessege label"></p>
-              <div class="passRules">
+              <div class="passRules label">
                 <p id="characters">√  8 characters long</p>
                 <p id="uppercase">√  One uppercase</p>
                 <p id="oneSymbol">√  add atleast one Symbol</p>
