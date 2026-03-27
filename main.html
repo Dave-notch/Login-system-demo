@@ -144,14 +144,22 @@ nav {
               <div>rememberMe</div>
             </div>
 
-            <button
-              type="button"
-              id="signinBtn"
-              class="w-full bg-blue-500 text-white h-10 text-xl rounded-xl font-semibold hover:bg-blue-600 transition Submit">
-              sign in
-          </button>
+            <div class="flex flex-col gap-2">
+                  <button
+                  type="button"
+                  id="signinBtn"
+                  class="w-full bg-blue-500 text-white h-10 text-xl rounded-xl font-semibold hover:bg-blue-600 transition Submit">
+                  sign in
+              </button>
+              <button
+                  type="button"
+                  id="LGsuccessBtn"
+                  class="w-full bg-green-400 text-white h-10 text-xl rounded-xl font-semibold hover:bg-green-500 transition Submit hidden">
+                  Loged in successfully
+              </button>
+            </div>
 
-          <div>Already have an account? <span  class="text-blue-500 text-xl cursor-pointer switchToSignup">Sing up</span></div>
+          <div class="label">Already have an account? <span  class="text-blue-500 text-xl cursor-pointer switchToSignup">Sing up</span></div>
        </form>
 
         <form class="flex flex-col gap-2" id="signupForm">
@@ -199,8 +207,14 @@ nav {
               class="w-full bg-blue-500 text-white h-10 text-xl rounded-xl font-semibold hover:bg-blue-600 transition Submit">
               sign in
           </button>
+          <button
+              type="button"
+              id="successBtn"
+              class="w-full bg-green-500 text-white h-10 text-xl rounded-xl font-semibold hover:bg-blue-600 transition Submit hidden">
+              User created successfully
+          </button>
           </div>
-          <div>Already have an account? <span class="text-blue-500 text-xl cursor-pointer switchToLogin">Sing in</span></div>
+          <div class="label">Already have an account? <span class="text-blue-500 text-xl cursor-pointer switchToLogin">Sing in</span></div>
        </form>
 
 
@@ -274,6 +288,7 @@ nav {
 
 
   <script src="main.js"></script>
+ 
 
 </body>
 </html>

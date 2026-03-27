@@ -9,6 +9,8 @@ const app = express()
 app.use(express.json())
 app.use(cors({ origin: "http://127.0.0.1:5500" }));
 
+
+
 app.post("/sign_UP", async (req,res,next)=>{
   try{
     const { name,email,pass} = req.body
@@ -24,6 +26,7 @@ app.post("/sign_UP", async (req,res,next)=>{
       `,[name,email,hashedPassowrd]
      )
      res.status(201).json({ message: "User created successfully" });
+    //  successBtn.style.display="block"
   
 
   }catch(err){
@@ -43,19 +46,25 @@ app.post("/sign_UP/login", async (req,res,next)=>{
       const user=rows[0]
 
       if(!user){
-        return res.status(401).send("User not found")
+        return res.status(401).send({message: "User not found"})
       }
 
       const isMatch= await bcrypt.compare(loginPass,user.pass)
 
       if(!isMatch){
-        return res.status(401).send("Wrong password")
+        return res.status(401).send({message: "Wrong password"})
+        // LGsuccessBtn.style.display="block"
+        // LGsuccessBtn.innerHTML="Wrong password"
+        // LGsuccessBtn.style.background="bg-red-400"
+
       }
 
-      res.status(200).json({ message: "Login successful" });
+    res.status(201).send({ message: `Login successfull${user.email}`});
+    //  export default responce;
+      // LGsuccessBtn.innerHTML=responce
     
   }catch(err){
-    console,error(err)
+    console.error(err)
     next(err)
   }
 

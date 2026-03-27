@@ -236,6 +236,8 @@ signupBtn.addEventListener("click", async() => {
 });
 
 let signinBtn=document.getElementById("signinBtn");
+let LGsuccessBtn=document.getElementById("LGsuccessBtn");
+let successBtn=document.getElementById("successBtn");
 
 signinBtn.addEventListener("click", async()=>{
    
@@ -254,14 +256,17 @@ signinBtn.addEventListener("click", async()=>{
           }) 
 
          })
+          LGsuccessBtn.style.display="block"
           const data = await res.json()
-          console.log(data);
+          console.log(data)
+          LGsuccessBtn.innerHTML=data.message;
        
     }else if(!emailRegex.test(logEmail) &&!loginPass){
     loginEmail.style.border="1px solid rgb(214, 108, 108)"
     loginPassword.style.border="1px solid rgb(214, 108, 108)"
 
   }
+
 
   
 })
