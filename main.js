@@ -137,6 +137,7 @@ let signupNameError=document.getElementById("signupNameError")
 let signupNameinput=document.getElementById("signupNameinput") 
 let signupNamelabel=document.getElementById("signupNamelabel")
 let passMessege=document.getElementById("passMessege")
+let successBtn=document.getElementById("successBtn");
 
 
 signupNameinput.addEventListener("input",(event)=>{
@@ -224,7 +225,14 @@ signupBtn.addEventListener("click", async() => {
 
          })
           const data = await res.json()
-          console.log(data);
+          console.log(data)
+          successBtn.style.display="block"
+          successBtn.innerHTML=data.message;
+
+          setInterval(() => {
+            successBtn.style.display="none"
+           
+          }, 3000);
     }
 
     signupPassword.style.border =
@@ -237,7 +245,7 @@ signupBtn.addEventListener("click", async() => {
 
 let signinBtn=document.getElementById("signinBtn");
 let LGsuccessBtn=document.getElementById("LGsuccessBtn");
-let successBtn=document.getElementById("successBtn");
+
 
 signinBtn.addEventListener("click", async()=>{
    
@@ -256,10 +264,16 @@ signinBtn.addEventListener("click", async()=>{
           }) 
 
          })
-          LGsuccessBtn.style.display="block"
+          
           const data = await res.json()
           console.log(data)
+          LGsuccessBtn.style.display="block"
           LGsuccessBtn.innerHTML=data.message;
+
+          setInterval(() => {
+            LGsuccessBtn.style.display="none"
+           
+          }, 3000);
        
     }else if(!emailRegex.test(logEmail) &&!loginPass){
     loginEmail.style.border="1px solid rgb(214, 108, 108)"

@@ -17,7 +17,7 @@ app.post("/sign_UP", async (req,res,next)=>{
     const hashedPassowrd= await bcrypt.hash(pass, 10)
 
      if(!name || !email || !pass){
-      return res.status(400).send("fields are empty please fill them up")
+      return res.status(400).send({message:"fields are empty please fill them up"})
      }
 
      await pool.query(
@@ -59,7 +59,7 @@ app.post("/sign_UP/login", async (req,res,next)=>{
 
       }
 
-    res.status(201).send({ message: `Login successfull${user.email}`});
+    res.status(201).send({ message: `Login successfull ${user.name}`});
     //  export default responce;
       // LGsuccessBtn.innerHTML=responce
     
