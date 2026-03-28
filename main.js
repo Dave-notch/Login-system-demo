@@ -160,8 +160,8 @@ signupBtn.addEventListener("click", async() => {
 
 
 
-    let name = signupNameinput.value.trim();
-    let email = signupEmail.value.trim();
+    let userName = signupNameinput.value.trim();
+    let userEmail = signupEmail.value.trim();
     let pass = Password.value;
     let confirm = confirmPassword.value;
     
@@ -173,7 +173,7 @@ signupBtn.addEventListener("click", async() => {
 
     let hasError = false;
 
-    if (name === "" || !nameRegex.test(name)) {
+    if (userName === "" || !nameRegex.test(userName)) {
         signupNameError.innerHTML = "Required" 
         signupNameError.style.color = "rgb(214, 108, 108)";
         signupNameinput.style.border = "1px solid rgb(214, 108, 108)";
@@ -181,8 +181,8 @@ signupBtn.addEventListener("click", async() => {
         hasError = true;
     }
 
-    if (email === "" || !emailRegex.test(email)) {
-        errorEmail.innerHTML = email === "" ? "Required" : "Invalid email";
+    if (userEmail === "" || !emailRegex.test(userEmail)) {
+        errorEmail.innerHTML = userEmail === "" ? "Required" : "Invalid email";
         errorEmail.style.color = "rgb(214, 108, 108)";
         signupEmail.style.border = "1px solid rgb(214, 108, 108)";
         labelEmail.style.color = "rgb(214, 108, 108)";
@@ -218,14 +218,15 @@ signupBtn.addEventListener("click", async() => {
           headers: {"Content-type": "application/json"
           },
           body: JSON.stringify({
-            name,
-            email,
+            userName,
+            userEmail,
             pass
           }) 
 
          })
-          const data = await res.json()
-          console.log(data)
+        const data = await res.json()
+         if(!res.oki){
+    
           successBtn.style.display="block"
           successBtn.innerHTML=data.message;
 
@@ -233,6 +234,18 @@ signupBtn.addEventListener("click", async() => {
             successBtn.style.display="none"
            
           }, 3000);
+
+         }
+       
+      
+          successBtn.style.display="block"
+          successBtn.innerHTML=data.message;
+
+          setInterval(() => {
+            successBtn.style.display="none"
+           
+          }, 3000);
+          
     }
 
     signupPassword.style.border =

@@ -13,18 +13,48 @@ app.use(cors({ origin: "http://127.0.0.1:5500" }));
 
 app.post("/sign_UP", async (req,res,next)=>{
   try{
-    const { name,email,pass} = req.body
+    const {userName,userEmail,pass} = req.body
     const hashedPassowrd= await bcrypt.hash(pass, 10)
 
-     if(!name || !email || !pass){
+     if(!userName || !userEmail || !pass){
       return res.status(400).send({message:"fields are empty please fill them up"})
      }
 
-     await pool.query(
+    const [rows] =  await pool.query(
+      `SELECT * FROM sign_UP WHERE name = ?
+      `,[userName]
+     )
+      
+    const [rowsEmail] =  await pool.query(
+      `SELECT * FROM sign_UP WHERE email = ?
+      `,[userEmail]
+     )
+      
+    const useremail=rowsEmail[0]
+    const user=rows[0]
+    
+
+    if(user && useremail){
+      return res.status(401).send({message:"Error userName and Email already exists"});
+     }
+
+    if(user){
+      return res.status(401).send({message:"Error userName already exists"});
+     }
+
+    if(useremail){
+      return res.status(401).send({message:"Error Email already exists"});
+     }
+
+
+
+    await pool.query(
       `INSERT INTO sign_UP (name, email,pass )
       VALUES (?,?,?)
-      `,[name,email,hashedPassowrd]
+      `,[userName,userEmail,hashedPassowrd]
      )
+
+  
      res.status(201).json({ message: "User created successfully" });
     //  successBtn.style.display="block"
   
