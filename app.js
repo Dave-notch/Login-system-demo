@@ -69,8 +69,8 @@ app.post("/sign_UP", async (req,res,next)=>{
 app.post("/sign_UP/login", async (req,res,next)=>{
   try{
     const {logEmail,loginPass} = req.body
-    const [rows] = await pool.query(`SELECT * FROM sign_UP
-        WHERE email = ?`,[logEmail]
+    const [rows] = await pool.query(`SELECT * FROM sign_UP where
+        email=?`,[logEmail]
       )
 
       const user=rows[0]
@@ -78,6 +78,8 @@ app.post("/sign_UP/login", async (req,res,next)=>{
       if(!user){
         return res.status(401).send({message: "User not found"})
       }
+
+      
 
       const isMatch= await bcrypt.compare(loginPass,user.pass)
 
@@ -89,7 +91,7 @@ app.post("/sign_UP/login", async (req,res,next)=>{
 
       }
 
-    res.status(201).send({ message: `Login successfull ${user.name}`});
+    res.status(201).send({ message: `Logged in successfully ${user.name}`});
     //  export default responce;
       // LGsuccessBtn.innerHTML=responce
     

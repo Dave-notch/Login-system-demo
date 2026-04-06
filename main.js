@@ -286,7 +286,7 @@ signinBtn.addEventListener("click", async()=>{
           setInterval(() => {
             LGsuccessBtn.style.display="none"
            
-          }, 3000);
+          }, 10000);
        
     }else if(!emailRegex.test(logEmail) &&!loginPass){
     loginEmail.style.border="1px solid rgb(214, 108, 108)"
