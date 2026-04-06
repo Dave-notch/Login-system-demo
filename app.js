@@ -56,6 +56,7 @@ app.post("/sign_UP", async (req,res,next)=>{
 
   
      res.status(201).json({ message: "User created successfully" });
+      window.location.href="/Components/index.html"
     //  successBtn.style.display="block"
   
 

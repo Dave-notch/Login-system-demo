@@ -4,42 +4,11 @@ let labelPassword=document.getElementById("labelPassword")
 let confirmPassword=document.getElementById("confirmPassword")
 let errorMessege=document.getElementById("errorMessege")
 let signuplabelPassword=document.getElementById("signuplabelPassword")
+let passMessege=document.getElementById("passMessege")
 
-  let comparingPass=[confirmPassword,Password]
-comparingPass.forEach(input=>{
-    input.addEventListener("input",(event)=>{
-        let pass=Password.value
-        let confirm=confirmPassword.value
-  //   if (!pass || !confirm) {
-  //   errorMessege.innerHTML = "Required";
-  //   errorMessege.style.color = "rgb(214, 108, 108)";
-  //   confirmPassword.style.border = "1px solid rgb(214, 108, 108)";
-  //    signuplabelPassword.style.color=""
-  //   return;
-  // }
 
-     if(!confirm||!pass){
-      errorMessege.innerHTML=""
-      confirmPassword.style.border = "";
-      return;
-     }
-
-      if(confirm==pass ){
-        errorMessege.innerHTML="Valid match"
-        errorMessege.style.color="rgba(23, 207, 78, 1)"
-        confirmPassword.style.border="1px solid rgba(23, 207, 78, 1)"
-        
-        }else{
-          errorMessege.innerHTML="password don't match"
-          errorMessege.style.color = "rgb(214, 108, 108)";
-          confirmPassword.style.border = "1px solid rgb(214, 108, 108)";
-          signuplabelPassword.style.color=""
-        }
-    })
-})
 
 Password.addEventListener("input",(event)=>{
-    function passCheck(){
     let pass=event.target.value
     let characters=document.getElementById("characters")
     let oneSymbol=document.getElementById("oneSymbol")
@@ -52,6 +21,10 @@ Password.addEventListener("input",(event)=>{
   "A","B","C","D","E","F","G","H","I","J","K","L","M",
   "N","O","P","Q","R","S","T","U","V","W","X","Y","Z"
 ];
+
+   if(pass){
+      passMessege.innerHTML=""
+     }
 
 
   let isLengthValid = pass.length >= 8 && pass.length <= 14;
@@ -86,8 +59,31 @@ Password.addEventListener("input",(event)=>{
       : "";
     
       
-}
-passCheck()
+
+
+})
+
+confirmPassword.addEventListener("input",()=>{
+   let pass=Password.value
+   let confirm=confirmPassword.value
+   if(confirm==pass ){
+      errorMessege.innerHTML="Valid match"
+      errorMessege.style.color="rgba(23, 207, 78, 1)"
+      confirmPassword.style.border="1px solid rgba(23, 207, 78, 1)"
+        setInterval(() => {
+          errorMessege.innerHTML="" 
+        }, 2000);
+        }else{
+          errorMessege.innerHTML="password don't match"
+          errorMessege.style.color = "rgb(214, 108, 108)";
+          confirmPassword.style.border = "1px solid rgb(214, 108, 108)";
+          signuplabelPassword.style.color=""
+             setInterval(() => {
+               errorMessege.innerHTML="" 
+          }, interval);
+        }
+
+ 
 })
 
 
@@ -136,8 +132,8 @@ let errorEmail=document.getElementById("errorEmail")
 let signupNameError=document.getElementById("signupNameError")
 let signupNameinput=document.getElementById("signupNameinput") 
 let signupNamelabel=document.getElementById("signupNamelabel")
-let passMessege=document.getElementById("passMessege")
 let successBtn=document.getElementById("successBtn");
+let successBtnCL=document.getElementsByClassName("successBtnCL");
 
 
 signupNameinput.addEventListener("input",(event)=>{
@@ -196,11 +192,12 @@ signupBtn.addEventListener("click", async() => {
         passMessege.innerHTML = "Required" 
         passMessege.style.color = "rgb(214, 108, 108)";
         hasError = true;
+    }else{
+       passMessege.innerHTML = "" 
     }
 
-    if (confirm === "" || confirm !== pass) {
-        errorMessege.innerHTML =
-        confirm === "" ? "Required" : "The passwords you entered do not match.";
+    if (confirm === "") {
+        errorMessege.innerHTML ="Required"
         errorMessege.style.color = "rgb(214, 108, 108)";
         confirmPassword.style.border = "1px solid rgb(214, 108, 108)";
         signuplabelPassword.style.color = "rgb(214, 108, 108)";
@@ -211,7 +208,7 @@ signupBtn.addEventListener("click", async() => {
         errorMessege.style.color = "rgba(23, 207, 78, 1)";
         confirmPassword.style.border = "1px solid rgba(23, 207, 78, 1)";
         signuplabelPassword.style.color = "rgba(23, 207, 78, 1)";
-        // window.location.href="index.html"
+        
 
          const res = await fetch("http://localhost:8000/sign_UP", {
           method: "POST",
@@ -225,26 +222,24 @@ signupBtn.addEventListener("click", async() => {
 
          })
         const data = await res.json()
-         if(!res.oki){
+         if(res.ok){
     
           successBtn.style.display="block"
           successBtn.innerHTML=data.message;
+          window.location.href="/Components/index.html"
 
           setInterval(() => {
             successBtn.style.display="none"
            
           }, 3000);
 
+         }else{
+          successBtn.successBtnCL="bg-red-400"
+          successBtn.innerHTML="Something went wrong";
          }
        
       
-          successBtn.style.display="block"
-          successBtn.innerHTML=data.message;
-
-          setInterval(() => {
-            successBtn.style.display="none"
-           
-          }, 3000);
+       
           
     }
 
