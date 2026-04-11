@@ -210,7 +210,7 @@ signupBtn.addEventListener("click", async() => {
         signuplabelPassword.style.color = "rgba(23, 207, 78, 1)";
         
 
-         const res = await fetch("http://localhost:8000/sign_UP", {
+         const res = await fetch("http://localhost:8000/sign_up", {
           method: "POST",
           headers: {"Content-type": "application/json"
           },
@@ -226,9 +226,9 @@ signupBtn.addEventListener("click", async() => {
     
           successBtn.style.display="block"
           successBtn.innerHTML=data.message;
-          window.location.href="/Components/index.html"
+          // window.location.href="/Components/index.html"
 
-          setInterval(() => {
+          setTimeout(() => {
             successBtn.style.display="none"
            
           }, 3000);
@@ -262,7 +262,7 @@ signinBtn.addEventListener("click", async()=>{
    let emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
    if(emailRegex.test(logEmail) && loginPass){
-       const res = await fetch("http://localhost:8000/sign_UP/login", {
+       const res = await fetch("http://localhost:8000/sign_up/login", {
           method: "POST",
           headers: {"Content-type": "application/json"
           },
@@ -278,7 +278,7 @@ signinBtn.addEventListener("click", async()=>{
           LGsuccessBtn.style.display="block"
           LGsuccessBtn.innerHTML=data.message;
 
-          setInterval(() => {
+          setTimeout(() => {
             LGsuccessBtn.style.display="none"
            
           }, 10000);
