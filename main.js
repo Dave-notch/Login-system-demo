@@ -210,7 +210,7 @@ signupBtn.addEventListener("click", async() => {
         signuplabelPassword.style.color = "rgba(23, 207, 78, 1)";
         
 
-         const res = await fetch("http://localhost:8000/sign_up", {
+         const res = await fetch("https://login-system-demo-is3f.onrender.com/sign_up", {
           method: "POST",
           headers: {"Content-type": "application/json"
           },
@@ -262,7 +262,7 @@ signinBtn.addEventListener("click", async()=>{
    let emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
    if(emailRegex.test(logEmail) && loginPass){
-       const res = await fetch("http://localhost:8000/sign_up/login", {
+       const res = await fetch("https://login-system-demo-is3f.onrender.com/sign_up/login", {
           method: "POST",
           headers: {"Content-type": "application/json"
           },
