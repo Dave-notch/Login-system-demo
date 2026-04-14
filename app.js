@@ -1,11 +1,12 @@
 import express from 'express'
-// import { createUser, getEmail,getPass } from './backend.js'
 import bcrypt from 'bcrypt'
 import cors from "cors";
 import dotenv from 'dotenv'
 import pg from 'pg'
 const { Pool } = pg
 dotenv.config()
+
+// import { createUser, getEmail,getPass } from './backend.js'
 
  const pool= new Pool({
     host: process.env.POSTGRES_HOST,
@@ -17,18 +18,9 @@ dotenv.config()
 })
 
 
-
-
 const app = express()
 app.use(express.json())
 app.use(cors({ origin: "http://127.0.0.1:5500" }));
-
-// app.use((req, res, next) => {
-//   console.log("Incoming request:", req.method, req.url);
-//   next();
-// });
-
-
 
 
 app.post("/sign_up", async (req,res,next)=>{
@@ -40,7 +32,7 @@ app.post("/sign_up", async (req,res,next)=>{
       return res.status(400).send({message:"fields are empty please fill them up"})
      }
 
-    const result =  await pool.query(
+    const result=  await pool.query(
       `SELECT * FROM sign_up WHERE name = $1
       `,[userName]
      )
@@ -50,15 +42,15 @@ app.post("/sign_up", async (req,res,next)=>{
       `,[userEmail]
      )
       
-    const useremail=rowsEmail.rows.length>0
-    const user=result.rows.length>0
+    const useremail=rowsEmail.rows[0]
+    const User=result.rows[0]
     
 
-    if(user && useremail){
+    if(useremail && User){
       return res.status(401).send({message:"Error userName and Email already exists"});
      }
 
-    if(user){
+    if(User){
       return res.status(401).send({message:"Error userName already exists"});
      }
 
@@ -86,11 +78,11 @@ app.post("/sign_up", async (req,res,next)=>{
 app.post("/sign_up/login", async (req,res,next)=>{
   try{
     const {logEmail,loginPass} = req.body
-    const [rows] = await pool.query(`SELECT * FROM sign_up where
+    const row = await pool.query(`SELECT * FROM sign_up where
         email=$1`,[logEmail]
       )
 
-      const user=rows[0]
+      const user=row.rows[0]
 
       if(!user){
         return res.status(401).send({message: "User not found"})
@@ -102,16 +94,10 @@ app.post("/sign_up/login", async (req,res,next)=>{
 
       if(!isMatch){
         return res.status(401).send({message: "Wrong password"})
-        // LGsuccessBtn.style.display="block"
-        // LGsuccessBtn.innerHTML="Wrong password"
-        // LGsuccessBtn.style.background="bg-red-400"
-
       }
 
     res.status(201).send({ message: `Logged in successfully ${user.name}`});
-    //  export default responce;
-      // LGsuccessBtn.innerHTML=responce
-    
+ 
   }catch(err){
     console.error(err)
     next(err)
@@ -146,8 +132,8 @@ app.use((err, req, res, next)=>{
   
 })
 
-console.log(process.env.POSTGRES_HOST);
-console.log(process.env.POSTGRES_PASSWORD);
+// console.log(process.env.POSTGRES_HOST);
+// console.log(process.env.POSTGRES_PASSWORD);
 
 
 

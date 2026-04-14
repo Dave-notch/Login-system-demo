@@ -2,3 +2,4 @@
 node_modules
 .vscode
 loginDB.session.sql
+loginDatabase.sql

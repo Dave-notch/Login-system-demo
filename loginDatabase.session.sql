@@ -18,6 +18,6 @@ SELECT * from sign_up
 DELETE from sign_UP
 where id<6
 
-DROP TABLE sign_UP
+DROP TABLE sign_up
 
 SELECT inet_server_port();
