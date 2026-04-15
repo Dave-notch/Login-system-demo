@@ -20,7 +20,7 @@ dotenv.config()
 
 const app = express()
 app.use(express.json())
-app.use(cors({ origin: "http://127.0.0.1:5500" }));
+app.use(cors({ origin: "https://dave-notch.github.io" }));
 
 
 app.post("/sign_up", async (req,res,next)=>{
