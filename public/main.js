@@ -78,9 +78,9 @@ confirmPassword.addEventListener("input",()=>{
           errorMessege.style.color = "rgb(214, 108, 108)";
           confirmPassword.style.border = "1px solid rgb(214, 108, 108)";
           signuplabelPassword.style.color=""
-             setInterval(() => {
+             setTimeout(() => {
                errorMessege.innerHTML="" 
-          }, interval);
+          }, 3000);
         }
 
  
@@ -210,7 +210,7 @@ signupBtn.addEventListener("click", async() => {
         signuplabelPassword.style.color = "rgba(23, 207, 78, 1)";
         
 
-         const res = await fetch("https://login-system-demo-is3f.onrender.com/sign_up", {
+         const res = await fetch("/sign_UP", {
           method: "POST",
           headers: {"Content-type": "application/json"
           },
@@ -226,7 +226,7 @@ signupBtn.addEventListener("click", async() => {
     
           successBtn.style.display="block"
           successBtn.innerHTML=data.message;
-          // window.location.href="/Components/index.html"
+          
 
           setTimeout(() => {
             successBtn.style.display="none"
@@ -242,6 +242,19 @@ signupBtn.addEventListener("click", async() => {
        
           
     }
+
+        const symbols = [
+  "!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", 
+  ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|", "}", "~"
+];
+    const uppercase=[
+  "A","B","C","D","E","F","G","H","I","J","K","L","M",
+  "N","O","P","Q","R","S","T","U","V","W","X","Y","Z"
+];
+
+    let isLengthValid = pass.length >= 8 && pass.length <= 14;
+      let hasSymbol = symbols.some(s => pass.includes(s));
+  let hasUppercase = uppercase.some(u => pass.includes(u));
 
     signupPassword.style.border =
     !isLengthValid && !hasSymbol && !hasUppercase
@@ -262,7 +275,7 @@ signinBtn.addEventListener("click", async()=>{
    let emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
    if(emailRegex.test(logEmail) && loginPass){
-       const res = await fetch("https://login-system-demo-is3f.onrender.com/sign_up/login", {
+       const res = await fetch("/sign_UP/login", {
           method: "POST",
           headers: {"Content-type": "application/json"
           },

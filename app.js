@@ -2,28 +2,29 @@ import express from 'express'
 import bcrypt from 'bcrypt'
 import cors from "cors";
 import dotenv from 'dotenv'
-import pg from 'pg'
-const { Pool } = pg
+import mysql2 from 'mysql2'
 dotenv.config()
 
 // import { createUser, getEmail,getPass } from './backend.js'
 
- const pool= new Pool({
-    host: process.env.POSTGRES_HOST,
-    user: process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_DATABASE,
-    port: 5432
+ const pool=mysql2.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    // port: 5432
     
-})
+}).promise()
 
 
 const app = express()
 app.use(express.json())
-app.use(cors({ origin: "https://dave-notch.github.io" }));
+app.use(cors());
+app.use(express.static("public"))
 
 
-app.post("/sign_up", async (req,res,next)=>{
+app.post("/sign_UP", async (req,res,next)=>{
+   console.log(req.body) 
   try{
     const {userName,userEmail,pass} = req.body
     const hashedPassowrd= await bcrypt.hash(pass, 10)
@@ -32,37 +33,33 @@ app.post("/sign_up", async (req,res,next)=>{
       return res.status(400).send({message:"fields are empty please fill them up"})
      }
 
-    const result=  await pool.query(
-      `SELECT * FROM sign_up WHERE name = $1
+    const [UserRows]=  await pool.query(
+      `SELECT * FROM sign_UP WHERE name = ?
       `,[userName]
      )
       
-    const rowsEmail =  await pool.query(
-      `SELECT * FROM sign_up WHERE email = $1
+    const [rowsEmail] =  await pool.query(
+      `SELECT * FROM sign_UP WHERE email = ?
       `,[userEmail]
      )
       
-    const useremail=rowsEmail.rows[0]
-    const User=result.rows[0]
+    const useremail=rowsEmail[0]
+    const User=UserRows[0]
     
 
     if(useremail && User){
       return res.status(401).send({message:"Error userName and Email already exists"});
-     }
-
-    if(User){
+     }else if(User){
       return res.status(401).send({message:"Error userName already exists"});
-     }
-
-    if(useremail){
+     }else if(useremail){
       return res.status(401).send({message:"Error Email already exists"});
      }
 
 
 
     await pool.query(
-      `INSERT INTO sign_up (name, email,pass )
-      VALUES ($1,$2,$3)
+      `INSERT INTO sign_UP (name, email,pass )
+      VALUES (?,?,?)
       `,[userName,userEmail,hashedPassowrd]
      )
 
@@ -75,14 +72,14 @@ app.post("/sign_up", async (req,res,next)=>{
 })
 
 
-app.post("/sign_up/login", async (req,res,next)=>{
+app.post("/sign_UP/login", async (req,res,next)=>{
   try{
     const {logEmail,loginPass} = req.body
-    const row = await pool.query(`SELECT * FROM sign_up where
-        email=$1`,[logEmail]
+    const [row] = await pool.query(`SELECT * FROM sign_UP WHERE
+        email=?`,[logEmail]
       )
 
-      const user=row.rows[0]
+      const user=row[0]
 
       if(!user){
         return res.status(401).send({message: "User not found"})
@@ -141,6 +138,24 @@ app.listen(8000, () => {
   console.log('Server running on port 8000');
 });
 
-app.get("/", (req, res) => {
-  res.send("Server is running")
-})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
