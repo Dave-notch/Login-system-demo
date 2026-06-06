@@ -97,6 +97,15 @@ nav {
   padding-left: 0.5rem;
 }
 
+  .menu-toggle {
+            display: none;
+            font-size: 1.6rem;
+            background: none;
+            border: none;
+            color: #e6eaff;
+            cursor: pointer;
+        } 
+
   
   /* div{
     padding: 0.2rem;
@@ -109,6 +118,10 @@ nav {
    <nav class="nav">
       <div class="nav-container">
         <div class="logo">𝔸𝕩𝕚𝕤</div>
+
+             <button class="menu-toggle" aria-label="Toggle menu">
+              ☰
+           </button>
 
 
         <div class="nav-links">
@@ -284,6 +297,11 @@ nav {
     });
 
  
+  </script>
+
+  <script>
+    const toggle = document.querySelector(".menu-toggle");
+    const links = document.querySelector(".nav-links");
   </script>
 
 

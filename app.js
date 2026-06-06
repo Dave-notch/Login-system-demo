@@ -24,7 +24,7 @@ app.use(express.static("public"))
 
 
 app.post("/sign_UP", async (req,res,next)=>{
-   console.log(req.body) 
+   console.log(req.body)
   try{
     const {userName,userEmail,pass} = req.body
     const hashedPassowrd= await bcrypt.hash(pass, 10)
@@ -33,7 +33,7 @@ app.post("/sign_UP", async (req,res,next)=>{
       return res.status(400).send({message:"fields are empty please fill them up"})
      }
 
-    const [UserRows]=  await pool.query(
+    const [UserRows] =  await pool.query(
       `SELECT * FROM sign_UP WHERE name = ?
       `,[userName]
      )
