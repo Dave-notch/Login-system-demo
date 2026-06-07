@@ -234,8 +234,14 @@ signupBtn.addEventListener("click", async() => {
           }, 3000);
 
          }else{
-          successBtn.successBtnCL="bg-red-400"
-          successBtn.innerHTML="Something went wrong";
+          successBtn.style.display="block"
+          successBtn.style.background="bg-red-400"
+          successBtn.innerHTML=data.error;
+
+           setTimeout(() => {
+            successBtn.style.display="none"
+           
+          }, 3000);
          }
        
       
