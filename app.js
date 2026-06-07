@@ -33,26 +33,26 @@ app.post("/sign_UP", async (req,res,next)=>{
       return res.status(400).send({message:"fields are empty please fill them up"})
      }
 
-      const NAME =  await pool.query(
+    const [name] =  await pool.query(
       `SELECT * FROM sign_UP WHERE name = ?
       `,[userName]
      )
       
-    const EMAIL=  await pool.query(
+    const [email] =  await pool.query(
       `SELECT * FROM sign_UP WHERE email = ?
       `,[userEmail]
      )
       
-    // const useremail=EMAIL[0]
-    // const User=NAME[0]
+    const EMAIL=email[0]
+    const NAME=name[0]
     
 
-    if(EMAIL.length>0 && NAME.length>0){
-      return res.status(401).json({error:"Error userName and Email already exists"});
-     }else if(NAME.length>0){
-      return res.status(401).json({error:"Error userName already exists"});
-     }else if(EMAIL.length>0){
-      return res.status(401).json({error:"Error Email already exists"});
+    if(EMAIL && NAME){
+      return res.status(401).send({error:"userName and Email already exists"});
+     }else if(NAME){
+      return res.status(401).send({error:"Error userName already exists"});
+     }else if(EMAIL){
+      return res.status(401).send({error:"Error Email already exists"});
      }
 
 

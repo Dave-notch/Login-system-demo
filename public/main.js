@@ -225,6 +225,7 @@ signupBtn.addEventListener("click", async() => {
          if(res.ok){
     
           successBtn.style.display="block"
+          successBtn.className="w-full bg-green-400 text-white h-10 text-xl rounded-xl font-semibold hover:bg-green-500 transition successBtnCL"
           successBtn.innerHTML=data.message;
           
 
@@ -235,7 +236,7 @@ signupBtn.addEventListener("click", async() => {
 
          }else{
           successBtn.style.display="block"
-          successBtn.style.background="bg-red-400"
+          successBtn.className="w-full bg-red-400 text-white h-10 text-xl rounded-xl font-semibold hover:bg-red-500 transition successBtnCL"
           successBtn.innerHTML=data.error;
 
            setTimeout(() => {
